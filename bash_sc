@@ -1,0 +1,12 @@
+#!/bin/bash
+docker run -d --name ubuntu -p 4022:22 ubuntu/nginx
+docker run -d --name centos7 -p 3022:22 chentex/docker-nginx-centos
+docker run -d --name fedora fedora/nginx
+echo '+++++++++++++++++++++++++++++++++++++++++++'
+echo 'Waiting for containers deployment'
+sleep 10s
+echo '+++++++++++++++++++++++++++++++++++++++++++'
+ansible-playbook site.yml -i ./inventory/prod.yml --vault-password-file ./ansible_pass.txt
+docker rm -v -f ubuntu
+docker rm -v -f centos7
+docker rm -v -f fedora

@@ -1,4 +1,25 @@
 ---
+  - name: install python3 on redhat-like
+    hosts: el
+    gather_facts: false
+    tasks:
+      - name: yum install python3
+        raw: yum install -y python3
+
+  - name: install python on redhat-like
+    hosts: fed
+    gather_facts: false
+    tasks:
+      - name: yum install python
+        raw: yum install -y python
+         
+  - name: install python3 on deb-like
+    hosts: deb
+    gather_facts: false
+    tasks:
+      - name: yum install python3
+        raw: apt update && apt install -y python3
+          
   - name: Print os facts
     hosts: all
     tasks:
